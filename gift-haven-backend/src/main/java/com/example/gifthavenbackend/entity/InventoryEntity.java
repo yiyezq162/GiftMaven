@@ -1,14 +1,12 @@
 package com.example.gifthavenbackend.entity;
 
-import jakarta.persistence.*;
-
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.Objects;
 
 /**
  * @author 黎锦斌
- * * @date 2023/5/8
+ * * @date 2023/5/9
  */
 @Entity
 @Table(name = "inventory", schema = "gift_shop", catalog = "")
@@ -85,12 +83,28 @@ public class InventoryEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         InventoryEntity that = (InventoryEntity) o;
-        return inventoryId == that.inventoryId && Objects.equals(giftId, that.giftId) && Objects.equals(number, that.number) && Objects.equals(purchasePrice, that.purchasePrice) && Objects.equals(createAt, that.createAt) && Objects.equals(updateAt, that.updateAt);
+
+        if (inventoryId != that.inventoryId) return false;
+        if (giftId != null ? !giftId.equals(that.giftId) : that.giftId != null) return false;
+        if (number != null ? !number.equals(that.number) : that.number != null) return false;
+        if (purchasePrice != null ? !purchasePrice.equals(that.purchasePrice) : that.purchasePrice != null)
+            return false;
+        if (createAt != null ? !createAt.equals(that.createAt) : that.createAt != null) return false;
+        if (updateAt != null ? !updateAt.equals(that.updateAt) : that.updateAt != null) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(inventoryId, giftId, number, purchasePrice, createAt, updateAt);
+        int result = inventoryId;
+        result = 31 * result + (giftId != null ? giftId.hashCode() : 0);
+        result = 31 * result + (number != null ? number.hashCode() : 0);
+        result = 31 * result + (purchasePrice != null ? purchasePrice.hashCode() : 0);
+        result = 31 * result + (createAt != null ? createAt.hashCode() : 0);
+        result = 31 * result + (updateAt != null ? updateAt.hashCode() : 0);
+        return result;
     }
 }

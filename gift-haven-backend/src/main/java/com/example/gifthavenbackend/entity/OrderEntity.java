@@ -1,13 +1,11 @@
 package com.example.gifthavenbackend.entity;
 
-import jakarta.persistence.*;
-
+import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Objects;
 
 /**
  * @author 黎锦斌
- * * @date 2023/5/8
+ * * @date 2023/5/9
  */
 @Entity
 @Table(name = "order", schema = "gift_shop", catalog = "")
@@ -73,12 +71,25 @@ public class OrderEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         OrderEntity that = (OrderEntity) o;
-        return orderId == that.orderId && Objects.equals(customerId, that.customerId) && Objects.equals(createAt, that.createAt) && Objects.equals(updateT, that.updateT) && Objects.equals(orderStatus, that.orderStatus);
+
+        if (orderId != that.orderId) return false;
+        if (customerId != null ? !customerId.equals(that.customerId) : that.customerId != null) return false;
+        if (createAt != null ? !createAt.equals(that.createAt) : that.createAt != null) return false;
+        if (updateT != null ? !updateT.equals(that.updateT) : that.updateT != null) return false;
+        if (orderStatus != null ? !orderStatus.equals(that.orderStatus) : that.orderStatus != null) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(orderId, customerId, createAt, updateT, orderStatus);
+        int result = orderId;
+        result = 31 * result + (customerId != null ? customerId.hashCode() : 0);
+        result = 31 * result + (createAt != null ? createAt.hashCode() : 0);
+        result = 31 * result + (updateT != null ? updateT.hashCode() : 0);
+        result = 31 * result + (orderStatus != null ? orderStatus.hashCode() : 0);
+        return result;
     }
 }

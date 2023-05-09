@@ -1,5 +1,6 @@
 package com.example.gifthavenbackend.repository;
 
+
 import com.example.gifthavenbackend.entity.CustomerEntity;
 import org.springframework.data.repository.CrudRepository;
 

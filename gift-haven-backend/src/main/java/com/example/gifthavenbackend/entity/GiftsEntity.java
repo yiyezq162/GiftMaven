@@ -1,14 +1,12 @@
 package com.example.gifthavenbackend.entity;
 
-import jakarta.persistence.*;
-
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.Objects;
 
 /**
  * @author 黎锦斌
- * * @date 2023/5/8
+ * * @date 2023/5/9
  */
 @Entity
 @Table(name = "gifts", schema = "gift_shop", catalog = "")
@@ -35,6 +33,9 @@ public class GiftsEntity {
     @Basic
     @Column(name = "updated_at")
     private Timestamp updatedAt;
+    @Basic
+    @Column(name = "img")
+    private String img;
 
     public int getGiftId() {
         return giftId;
@@ -92,16 +93,43 @@ public class GiftsEntity {
         this.updatedAt = updatedAt;
     }
 
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         GiftsEntity that = (GiftsEntity) o;
-        return giftId == that.giftId && Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(price, that.price) && Objects.equals(stock, that.stock) && Objects.equals(createdAt, that.createdAt) && Objects.equals(updatedAt, that.updatedAt);
+
+        if (giftId != that.giftId) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (description != null ? !description.equals(that.description) : that.description != null) return false;
+        if (price != null ? !price.equals(that.price) : that.price != null) return false;
+        if (stock != null ? !stock.equals(that.stock) : that.stock != null) return false;
+        if (createdAt != null ? !createdAt.equals(that.createdAt) : that.createdAt != null) return false;
+        if (updatedAt != null ? !updatedAt.equals(that.updatedAt) : that.updatedAt != null) return false;
+        if (img != null ? !img.equals(that.img) : that.img != null) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(giftId, name, description, price, stock, createdAt, updatedAt);
+        int result = giftId;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (price != null ? price.hashCode() : 0);
+        result = 31 * result + (stock != null ? stock.hashCode() : 0);
+        result = 31 * result + (createdAt != null ? createdAt.hashCode() : 0);
+        result = 31 * result + (updatedAt != null ? updatedAt.hashCode() : 0);
+        result = 31 * result + (img != null ? img.hashCode() : 0);
+        return result;
     }
 }
