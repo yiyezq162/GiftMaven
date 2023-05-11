@@ -36,6 +36,9 @@ public class GiftsEntity {
     @Basic
     @Column(name = "img")
     private String img;
+    @Basic
+    @Column(name = "deleted")
+    private String deleted;
 
     public int getGiftId() {
         return giftId;
@@ -131,5 +134,13 @@ public class GiftsEntity {
         result = 31 * result + (updatedAt != null ? updatedAt.hashCode() : 0);
         result = 31 * result + (img != null ? img.hashCode() : 0);
         return result;
+    }
+
+    public String getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(String deleted) {
+        this.deleted = deleted;
     }
 }

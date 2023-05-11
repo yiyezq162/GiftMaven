@@ -1,5 +1,7 @@
 package com.example.gifthavenbackend.entity;
 
+import org.hibernate.annotations.Where;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -9,6 +11,7 @@ import java.sql.Timestamp;
  */
 @Entity
 @Table(name = "admin", schema = "gift_shop", catalog = "")
+@Where(clause = "deleted = '0'")
 public class AdminEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -32,6 +35,9 @@ public class AdminEntity {
     @Basic
     @Column(name = "roles")
     private String roles;
+    @Basic
+    @Column(name = "deleted")
+    private String deleted;
 
     public int getAdminId() {
         return adminId;
@@ -117,5 +123,13 @@ public class AdminEntity {
         result = 31 * result + (avatar != null ? avatar.hashCode() : 0);
         result = 31 * result + (roles != null ? roles.hashCode() : 0);
         return result;
+    }
+
+    public String getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(String deleted) {
+        this.deleted = deleted;
     }
 }

@@ -30,6 +30,9 @@ public class InventoryEntity {
     @Basic
     @Column(name = "update_at")
     private Timestamp updateAt;
+    @Basic
+    @Column(name = "deleted")
+    private String deleted;
 
     public int getInventoryId() {
         return inventoryId;
@@ -106,5 +109,13 @@ public class InventoryEntity {
         result = 31 * result + (createAt != null ? createAt.hashCode() : 0);
         result = 31 * result + (updateAt != null ? updateAt.hashCode() : 0);
         return result;
+    }
+
+    public String getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(String deleted) {
+        this.deleted = deleted;
     }
 }

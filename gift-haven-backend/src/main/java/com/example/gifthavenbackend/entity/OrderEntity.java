@@ -26,6 +26,9 @@ public class OrderEntity {
     @Basic
     @Column(name = "order_status")
     private String orderStatus;
+    @Basic
+    @Column(name = "deleted")
+    private String deleted;
 
     public int getOrderId() {
         return orderId;
@@ -91,5 +94,13 @@ public class OrderEntity {
         result = 31 * result + (updateT != null ? updateT.hashCode() : 0);
         result = 31 * result + (orderStatus != null ? orderStatus.hashCode() : 0);
         return result;
+    }
+
+    public String getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(String deleted) {
+        this.deleted = deleted;
     }
 }

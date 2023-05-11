@@ -4,6 +4,9 @@ import com.alibaba.fastjson.JSON;
 import com.example.gifthavenbackend.entity.AdminEntity;
 import com.example.gifthavenbackend.repository.AdminRepository;
 import com.example.gifthavenbackend.service.AdminService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -66,11 +69,11 @@ public class AdminServiceImpl implements AdminService {
         // 从redis查询token
         Object obj = redisTemplate.opsForValue().get(token);
         // 反序列化
-        AdminEntity admin = JSON.parseObject(JSON.toJSONString(obj),AdminEntity.class);
-        if(admin != null){
-            Map<String, Object> data =  new HashMap<>();
-            data.put("name",admin.getUsername());
-            data.put("avatar",admin.getAvatar());
+        AdminEntity admin = JSON.parseObject(JSON.toJSONString(obj), AdminEntity.class);
+        if (admin != null) {
+            Map<String, Object> data = new HashMap<>();
+            data.put("name", admin.getUsername());
+            data.put("avatar", admin.getAvatar());
             data.put("roles", admin.getRoles());
             return data;
         }
@@ -80,5 +83,48 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public void logout(String token) {
         redisTemplate.delete(token);
+    }
+
+    @Override
+    public HashMap<String, Object> findAll(int pageNo, int pageSize, String username) {
+        if (pageNo >= 1) pageNo -= 1;
+        HashMap<String, Object> map = new HashMap<>();
+        Pageable pageable = PageRequest.of(pageNo, pageSize);
+        Page<AdminEntity> page = adminRepository.findAll(pageable);
+        if (username != null) {
+            AdminEntity admin = adminRepository.findAdminEntityByUsername(username);
+            List<AdminEntity> list = new ArrayList<>();
+            list.add(admin);
+            map = new HashMap<>();
+            map.put("total", 1);
+            map.put("rows", list);
+            return map;
+        }
+        List<AdminEntity> list = page.getContent();
+        map.put("total", list.size());
+        map.put("rows", list);
+        return map;
+    }
+
+    @Override
+    public void save(AdminEntity adminEntity) {
+        adminRepository.save(adminEntity);
+    }
+
+    @Override
+    public void update(AdminEntity adminEntity) {
+        adminRepository.save(adminEntity);
+    }
+
+    @Override
+    public AdminEntity getAdminById(Integer id) {
+        return adminRepository.getAdminEntityByAdminId(id);
+    }
+
+    @Override
+    public void deleteAdminById(Integer id) {
+        AdminEntity admin = adminRepository.findAdminEntityByAdminId(id);
+        admin.setDeleted("1");
+        update(admin);
     }
 }

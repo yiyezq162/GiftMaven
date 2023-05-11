@@ -32,6 +32,9 @@ public class CustomerEntity {
     @Basic
     @Column(name = "avatar")
     private String avatar;
+    @Basic
+    @Column(name = "deleted")
+    private String deleted;
 
     public int getCustomerId() {
         return customerId;
@@ -117,5 +120,13 @@ public class CustomerEntity {
         result = 31 * result + (updatedAt != null ? updatedAt.hashCode() : 0);
         result = 31 * result + (avatar != null ? avatar.hashCode() : 0);
         return result;
+    }
+
+    public String getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(String deleted) {
+        this.deleted = deleted;
     }
 }

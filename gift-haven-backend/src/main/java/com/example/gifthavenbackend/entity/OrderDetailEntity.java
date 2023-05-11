@@ -32,6 +32,9 @@ public class OrderDetailEntity {
     @Basic
     @Column(name = "update_at")
     private Timestamp updateAt;
+    @Basic
+    @Column(name = "deleted")
+    private String deleted;
 
     public int getOrderDetailId() {
         return orderDetailId;
@@ -117,5 +120,13 @@ public class OrderDetailEntity {
         result = 31 * result + (createAt != null ? createAt.hashCode() : 0);
         result = 31 * result + (updateAt != null ? updateAt.hashCode() : 0);
         return result;
+    }
+
+    public String getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(String deleted) {
+        this.deleted = deleted;
     }
 }
