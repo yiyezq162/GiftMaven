@@ -1,6 +1,6 @@
 package com.example.gifthavenbackend.service.impl;
 
-import com.alibaba.fastjson.JSON;
+import com.example.gifthavenbackend.config.JwtUtil;
 import com.example.gifthavenbackend.entity.AdminEntity;
 import com.example.gifthavenbackend.repository.AdminRepository;
 import com.example.gifthavenbackend.service.AdminService;
@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author 黎锦斌
@@ -23,12 +22,12 @@ import java.util.concurrent.TimeUnit;
  */
 @Service
 public class AdminServiceImpl implements AdminService {
-
     @Resource
     private AdminRepository adminRepository;
-
     @Resource
     private RedisTemplate redisTemplate;
+    @Resource
+    private JwtUtil jwtUtil;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -52,11 +51,11 @@ public class AdminServiceImpl implements AdminService {
     public Map<String, Object> login(AdminEntity adminEntity) {
         AdminEntity admin = adminRepository.findAdminEntityByUsername(adminEntity.getUsername());
         if (admin != null && Objects.equals(admin.getPassword(), adminEntity.getPassword())) {
-            String key = "login" + UUID.randomUUID();
-            //存入redis
+            // String key = "login" + UUID.randomUUID();
+            // 存入redis
             admin.setPassword(null);
-            redisTemplate.opsForValue().set(key, admin, 36, TimeUnit.HOURS);
-
+            //redisTemplate.opsForValue().set(key, admin, 36, TimeUnit.HOURS);
+            String key = jwtUtil.createToken(admin);
             HashMap<String, Object> data = new HashMap<>();
             data.put("token", key);
             return data;
@@ -67,10 +66,18 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public Map<String, Object> getUserInfo(String token) {
         // 从redis查询token
-        Object obj = redisTemplate.opsForValue().get(token);
-        // 反序列化
-        AdminEntity admin = JSON.parseObject(JSON.toJSONString(obj), AdminEntity.class);
+        // Object obj = redisTemplate.opsForValue().get(token);
+        AdminEntity admin = null;
+        try {
+            admin = jwtUtil.parseToken(token, AdminEntity.class);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+
         if (admin != null) {
+            // 反序列化
+            // AdminEntity admin = JSON.parseObject(JSON.toJSONString(obj), AdminEntity.class);
             Map<String, Object> data = new HashMap<>();
             data.put("name", admin.getUsername());
             data.put("avatar", admin.getAvatar());
@@ -82,17 +89,17 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void logout(String token) {
-        redisTemplate.delete(token);
+    // redisTemplate.delete(token);
     }
 
     @Override
-    public HashMap<String, Object> findAll(int pageNo, int pageSize, String username) {
+    public HashMap<String, Object> findAll(int pageNo, int pageSize, String name) {
         if (pageNo >= 1) pageNo -= 1;
         HashMap<String, Object> map = new HashMap<>();
         Pageable pageable = PageRequest.of(pageNo, pageSize);
         Page<AdminEntity> page = adminRepository.findAll(pageable);
-        if (username != null) {
-            AdminEntity admin = adminRepository.findAdminEntityByUsername(username);
+        if (name != null) {
+            AdminEntity admin = adminRepository.findAdminEntityByUsername(name);
             List<AdminEntity> list = new ArrayList<>();
             list.add(admin);
             map = new HashMap<>();
@@ -101,7 +108,7 @@ public class AdminServiceImpl implements AdminService {
             return map;
         }
         List<AdminEntity> list = page.getContent();
-        map.put("total", list.size());
+        map.put("total", page.getTotalElements());
         map.put("rows", list);
         return map;
     }

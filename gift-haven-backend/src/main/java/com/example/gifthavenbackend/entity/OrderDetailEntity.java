@@ -1,5 +1,7 @@
 package com.example.gifthavenbackend.entity;
 
+import org.hibernate.annotations.Where;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -9,6 +11,7 @@ import java.sql.Timestamp;
  */
 @Entity
 @Table(name = "order_detail", schema = "gift_shop", catalog = "")
+@Where(clause = "deleted = '0'")
 public class OrderDetailEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

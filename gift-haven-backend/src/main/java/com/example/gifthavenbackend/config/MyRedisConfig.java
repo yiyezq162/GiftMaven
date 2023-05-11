@@ -21,6 +21,8 @@ import java.text.SimpleDateFormat;
 import java.util.TimeZone;
 
 /**
+ * redisTemplate 序列化
+ *
  * @author 黎锦斌
  * * @date 2023/5/9
  */
@@ -30,7 +32,7 @@ public class MyRedisConfig {
     private RedisConnectionFactory factory;
 
     @Bean
-    public RedisTemplate redisTemplate(){
+    public RedisTemplate redisTemplate() {
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(factory);
         redisTemplate.setKeySerializer(new StringRedisSerializer());
@@ -45,7 +47,7 @@ public class MyRedisConfig {
         om.configure(MapperFeature.USE_ANNOTATIONS, false);
         om.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         om.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-        om.activateDefaultTyping(LaissezFaireSubTypeValidator.instance ,ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
+        om.activateDefaultTyping(LaissezFaireSubTypeValidator.instance, ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
         om.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         serializer.setObjectMapper(om);
 

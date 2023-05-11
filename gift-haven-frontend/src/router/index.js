@@ -65,13 +65,13 @@ export const constantRoutes = [
         path: 'customer',
         name: 'customer',
         component: () => import('@/views/user/customer'),
-        meta: { title: '客户管理', icon: 'table' }
+        meta: { title: '客户管理', icon: 'el-icon-user-solid' }
       },
       {
         path: 'admin',
         name: 'admin',
         component: () => import('@/views/user/admin'),
-        meta: { title: '管理员管理', icon: 'tree' }
+        meta: { title: '管理员管理', icon: 'el-icon-user' }
       }
     ]
   },
@@ -81,19 +81,19 @@ export const constantRoutes = [
     component: Layout,
     redirect: '/gift/crud',
     name: 'giftManage',
-    meta: { title: '礼品管理', icon: 'el-icon-s-help' },
+    meta: { title: '礼品管理', icon: 'el-icon-goods' },
     children: [
       {
         path: 'gift',
         name: 'gift',
         component: () => import('@/views/gift/curd'),
-        meta: { title: '礼品列表', icon: 'table' }
+        meta: { title: '礼品列表', icon: 'el-icon-present' }
       },
       {
         path: 'inventory',
         name: 'inventory',
         component: () => import('@/views/gift/inventory'),
-        meta: { title: '库存管理', icon: 'tree' }
+        meta: { title: '库存管理', icon: 'el-icon-box' }
       }
     ]
   },
@@ -106,7 +106,7 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/order'),
-      meta: { title: '订单管理', icon: 'dashboard' }
+      meta: { title: '订单管理', icon: 'el-icon-s-order' }
     }]
   },
 
@@ -116,7 +116,7 @@ export const constantRoutes = [
     children: [
       {
         path: 'https://www.meet0208.icu:9092/o9pnjJ.jpg',
-        meta: { title: '捐助我', icon: 'link' }
+        meta: { title: '捐助我', icon: 'el-icon-wallet' }
       }
     ]
   },

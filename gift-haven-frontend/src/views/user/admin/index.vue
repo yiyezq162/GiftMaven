@@ -35,7 +35,14 @@
         <el-table-column prop="adminId" label="用户ID" width="180" />
         <el-table-column prop="username" label="用户名" width="180" />
         <el-table-column prop="password" label="密码" width="180" />
-        <el-table-column prop="avatar" label="头像" width="180" />
+        <el-table-column prop="avatar" label="头像" width="180" >
+          <template slot-scope="scope">
+            <el-popover placement="top-start" title="" trigger="hover">
+              <img :src="scope.row.avatar" alt="" style="width: 150px;height: 150px">
+              <img slot="reference" :src="scope.row.avatar" style="width: 30px;height: 30px">
+            </el-popover>
+          </template>
+        </el-table-column>
         <el-table-column prop="roles" label="权限" width="180" />
         <el-table-column label="操作" width="180">
           <template slot-scope="scope">
@@ -225,7 +232,7 @@ export default {
 
 <style>
 #search .el-input {
-  width: 200px;
+  width: 85%;
   margin-right: 10px;
 }
 
