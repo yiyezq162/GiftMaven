@@ -29,6 +29,7 @@ public class GiftsController {
             @RequestParam(value = "page", defaultValue = "0") int pageNo,
             @RequestParam(value = "pageSize", defaultValue = "5") int pageSize) {
 
+
         HashMap<String, Object> all = giftsService.findAll(pageNo, pageSize, name);
 
         return Result.success(all);
@@ -47,13 +48,13 @@ public class GiftsController {
     }
 
     @PutMapping
-    public Result<?> updateAdmin(@RequestBody GiftsEntity giftsEntity) {
+    public Result<?> updateGift(@RequestBody GiftsEntity giftsEntity) {
         giftsService.save(giftsEntity);
         return Result.success("添加成功");
     }
 
     @DeleteMapping("/{id}")
-    public Result<?> deleteAdminById(@PathVariable("id") Integer id) {
+    public Result<?> deleteGiftById(@PathVariable("id") Integer id) {
         giftsService.deleteGiftById(id);
         return Result.success("删除成功");
     }

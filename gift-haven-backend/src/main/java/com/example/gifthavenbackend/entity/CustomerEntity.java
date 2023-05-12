@@ -38,6 +38,9 @@ public class CustomerEntity {
     @Basic
     @Column(name = "deleted")
     private String deleted;
+    @Basic
+    @Column(name = "password")
+    private String password;
 
     public int getCustomerId() {
         return customerId;
@@ -131,5 +134,13 @@ public class CustomerEntity {
 
     public void setDeleted(String deleted) {
         this.deleted = deleted;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

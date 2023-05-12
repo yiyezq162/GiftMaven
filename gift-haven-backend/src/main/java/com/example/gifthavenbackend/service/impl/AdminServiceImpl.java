@@ -115,11 +115,11 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void save(AdminEntity adminEntity) {
-        adminRepository.save(adminEntity);
-    }
-
-    @Override
-    public void update(AdminEntity adminEntity) {
+        //未知BUG，数据库设置了deleted字段默认值为0，传入的对象也没有deleted值，但是默认值设置不生效
+        //先这样写吧，值不为一，则为0
+        if (!Objects.equals(adminEntity.getDeleted(), "1")) {
+            adminEntity.setDeleted("0");
+        }
         adminRepository.save(adminEntity);
     }
 
@@ -132,6 +132,6 @@ public class AdminServiceImpl implements AdminService {
     public void deleteAdminById(Integer id) {
         AdminEntity admin = adminRepository.findAdminEntityByAdminId(id);
         admin.setDeleted("1");
-        update(admin);
+        save(admin);
     }
 }

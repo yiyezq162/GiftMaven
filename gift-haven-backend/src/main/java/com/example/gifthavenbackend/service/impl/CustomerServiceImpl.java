@@ -1,8 +1,8 @@
 package com.example.gifthavenbackend.service.impl;
 
-import com.example.gifthavenbackend.entity.GiftsEntity;
-import com.example.gifthavenbackend.repository.GiftsRepository;
-import com.example.gifthavenbackend.service.GiftsService;
+import com.example.gifthavenbackend.entity.CustomerEntity;
+import com.example.gifthavenbackend.repository.CustomerRepository;
+import com.example.gifthavenbackend.service.CustomerService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -15,53 +15,53 @@ import java.util.Objects;
 
 /**
  * @author 黎锦斌
- * * @date 2023/5/11
+ * * @date 2023/5/13
  */
-
 @Service
-public class GiftsServiceImpl implements GiftsService {
+public class CustomerServiceImpl implements CustomerService {
+
     @Resource
-    GiftsRepository giftsRepository;
+    CustomerRepository customerRepository;
 
     @Override
     public HashMap<String, Object> findAll(int pageNo, int pageSize, String name) {
         if (pageNo >= 1) pageNo -= 1;
         HashMap<String, Object> map = new HashMap<>();
         Pageable pageable = PageRequest.of(pageNo, pageSize);
-        Page<GiftsEntity> page = giftsRepository.findAll(pageable);
+        Page<CustomerEntity> page = customerRepository.findAll(pageable);
         if (name != null) {
-            List<GiftsEntity> gifts = giftsRepository.findByNameLike("%"+name+"%");
+            List<CustomerEntity> gifts = customerRepository.findByNameLike("%" + name + "%");
             map = new HashMap<>();
             map.put("total", gifts.size());
             map.put("rows", gifts);
             return map;
         }
-        List<GiftsEntity> list = page.getContent();
+        List<CustomerEntity> list = page.getContent();
         map.put("total", page.getTotalElements());
         map.put("rows", list);
         return map;
     }
 
     @Override
-    public GiftsEntity findGiftEntityByGiftId(Integer id) {
-        GiftsEntity giftsEntity = giftsRepository.findGiftEntityByGiftId(id);
-        return giftsEntity;
+    public CustomerEntity findGiftEntityByGiftId(Integer id) {
+        CustomerEntity customerEntity = customerRepository.findCustomerEntityByCustomerId(id);
+        return customerEntity;
     }
 
     @Override
-    public void save(GiftsEntity giftsEntity) {
+    public void save(CustomerEntity customerEntity) {
         //未知BUG，数据库设置了deleted字段默认值为0，传入的对象也没有deleted值，但是默认值设置不生效
         //先这样写吧，值不为一，则为0
-        if (!Objects.equals(giftsEntity.getDeleted(), "1")) {
-            giftsEntity.setDeleted("0");
+        if (!Objects.equals(customerEntity.getDeleted(), "1")) {
+            customerEntity.setDeleted("0");
         }
-        giftsRepository.save(giftsEntity);
+        customerRepository.save(customerEntity);
     }
 
     @Override
-    public void deleteGiftById(Integer id) {
-        GiftsEntity giftsEntity = giftsRepository.findGiftEntityByGiftId(id);
-        giftsEntity.setDeleted("1");
-        save(giftsEntity);
+    public void deleteCustomerById(Integer id) {
+        CustomerEntity customerEntity = customerRepository.findCustomerEntityByCustomerId(id);
+        customerEntity.setDeleted("1");
+        save(customerEntity);
     }
 }

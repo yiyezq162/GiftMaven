@@ -1,30 +1,18 @@
-<template>
-  <div class="dashboard-container">
-    <div class="dashboard-text">欢迎今天上班: {{ name }}</div>
-  </div>
-</template>
+<script setup>
 
-<script>
-import { mapGetters } from 'vuex'
-
-export default {
-  name: 'Dashboard',
-  computed: {
-    ...mapGetters([
-      'name'
-    ])
-  }
-}
 </script>
 
-<style lang="scss" scoped>
-.dashboard {
-  &-container {
-    margin: 30px;
-  }
-  &-text {
-    font-size: 30px;
-    line-height: 46px;
-  }
-}
+<template>
+  <el-card>
+    <el-steps :active="2" finish-status="success">
+      <el-step title="步骤 1" description="小礼品Crud"></el-step>
+      <el-step title="步骤 2" description="顾客Crud"></el-step>
+      <el-step title="步骤 3" description="编写小礼品商城"></el-step>
+    </el-steps>
+  </el-card>
+
+</template>
+
+<style scoped>
+
 </style>

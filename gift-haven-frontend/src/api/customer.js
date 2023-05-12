@@ -1,9 +1,9 @@
 import request from '@/utils/request'
 
 export default {
-  getGiftsList(searchModel) {
+  getCustomerList(searchModel) {
     return request({
-      url: '/gifts/list',
+      url: '/customer/list',
       method: 'get',
       params: {
         page: searchModel.pageNo,
@@ -12,22 +12,22 @@ export default {
       }
     })
   },
-  savaGift(gift) {
+  saveCustomer(customer) {
     return request({
-      url: '/gifts',
+      url: '/customer',
       method: 'post',
-      data: gift
+      data: customer
     })
   },
-  deleteGiftById(id) {
+  deleteCustomerById(id) {
     return request({
-      url: '/gifts/' + id,
+      url: '/customer/' + id,
       method: 'delete'
     })
   },
-  getGiftById(id) {
+  getCustomerById(id) {
     return request({
-      url: '/gifts/' + id,
+      url: '/customer/' + id,
       method: 'get'
     })
   }

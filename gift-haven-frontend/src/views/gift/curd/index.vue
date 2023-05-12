@@ -44,7 +44,18 @@
             </el-popover>
           </template>
         </el-table-column>
-        <el-table-column prop="description" label="描述" />
+        <el-table-column prop="title" label="描述" width="180">
+          <template slot-scope="scope">
+            <el-popover
+              placement="top-start"
+              width="400"
+              trigger="hover"
+              :content="scope.row.description"
+            >
+              <div slot="reference">{{ scope.row.title }}</div>
+            </el-popover>
+          </template>
+        </el-table-column>
         <el-table-column label="操作" width="180">
           <template slot-scope="scope">
             <el-button type="primary" icon="el-icon-edit" size="mini" circle @click="openEditUI(scope.row.giftId)" />
@@ -81,14 +92,26 @@
         <el-form-item label="商品价格" prop="price" :label-width="formLabelWidth">
           <el-input v-model="giftForm.price" autocomplete="off" />
         </el-form-item>
-        <el-form-item label="商品图片" :label-width="formLabelWidth">
-          <el-input v-model="giftForm.img" autocomplete="off" />
+        <el-form-item label="商品标题" :label-width="formLabelWidth">
+          <el-input v-model="giftForm.title" autocomplete="off" />
         </el-form-item>
         <el-form-item label="商品库存" :label-width="formLabelWidth">
           <el-input v-model="giftForm.stock" autocomplete="off" />
         </el-form-item>
-        <el-form-item label="商品描述" :label-width="formLabelWidth" >
-          <el-input v-model="giftForm.description" autocomplete="off" />
+        <el-form-item label="商品图片" :label-width="formLabelWidth">
+          <el-input v-model="giftForm.img" autocomplete="off" />
+        </el-form-item>
+        <el-form-item label="图片预览" :label-width="formLabelWidth">
+          <img :src="giftForm.img" style="height: 300px; width: 300px;" alt="">
+        </el-form-item>
+        <el-form-item label="商品描述" :label-width="formLabelWidth">
+          <el-input
+            v-model="giftForm.description"
+            type="textarea"
+            placeholder="请输入内容"
+            maxlength="300"
+            show-word-limit
+          />
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">

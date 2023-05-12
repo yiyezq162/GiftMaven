@@ -1,10 +1,7 @@
 package com.example.gifthavenbackend.service;
 
 import com.example.gifthavenbackend.entity.AdminEntity;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.userdetails.UserDetailsService;
-
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,8 +23,6 @@ public interface AdminService extends UserDetailsService {
     HashMap<String,Object> findAll(int pageNo, int pageSize, String username);
 
     void save(AdminEntity adminEntity);
-
-    void update(AdminEntity adminEntity);
 
     AdminEntity getAdminById(Integer id);
 

@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,16 +17,8 @@ import java.util.Map;
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
-
     @Resource
     private AdminService adminService;
-
-    @GetMapping("/lists")
-    public Result<List<AdminEntity>> adminList() {
-        List<AdminEntity> list = adminService.findAll();
-        return Result.success(list);
-    }
-
     @PostMapping("/login")
     public Result<Map<String, Object>> login(@RequestBody AdminEntity adminEntity) {
         Map<String, Object> data = adminService.login(adminEntity);
@@ -71,7 +62,7 @@ public class AdminController {
     @PutMapping
     public Result<?> updateAdmin(@RequestBody AdminEntity adminEntity) {
         adminEntity.setPassword(null);
-        adminService.update(adminEntity);
+        adminService.save(adminEntity);
         return Result.success("添加成功");
     }
 

@@ -42,6 +42,9 @@ public class GiftsEntity {
     @Basic
     @Column(name = "deleted")
     private String deleted;
+    @Basic
+    @Column(name = "title")
+    private String title;
 
     public int getGiftId() {
         return giftId;
@@ -145,5 +148,13 @@ public class GiftsEntity {
 
     public void setDeleted(String deleted) {
         this.deleted = deleted;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }
