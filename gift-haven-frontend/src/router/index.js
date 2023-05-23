@@ -111,16 +111,16 @@ export const constantRoutes = [
   },
 
   {
-    path: 'external-link',
+    path: '/external',
     component: Layout,
-    children: [
-      {
-        path: 'https://www.meet0208.icu:9092/o9pnjJ.jpg',
-        meta: { title: '捐助我', icon: 'el-icon-wallet' }
-      }
-    ]
+    redirect: '/external',
+    children: [{
+      path: 'dashboard',
+      name: 'Dashboard',
+      component: () => import('@/views/external'),
+      meta: { title: '捐献', icon: 'el-icon-wallet' }
+    }]
   },
-
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]

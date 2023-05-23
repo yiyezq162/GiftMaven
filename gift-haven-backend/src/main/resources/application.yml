@@ -25,6 +25,14 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
+        enable_lazy_load_no_trans: true
+
+  jackson:
+    default-property-inclusion: non_null
+    serialization:
+      fail-on-empty-beans: false
+    mapper:
+      default-view-inclusion: true
 
 hibernate:
   hbm2ddl:

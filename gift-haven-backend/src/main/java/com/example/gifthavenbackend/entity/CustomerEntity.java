@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 
 /**
  * @author 黎锦斌
- * * @date 2023/5/9
+ * * @date 2023/5/14
  */
 @Entity
 @Table(name = "customer", schema = "gift_shop", catalog = "")
@@ -20,6 +20,9 @@ public class CustomerEntity {
     @Basic
     @Column(name = "name")
     private String name;
+    @Basic
+    @Column(name = "password")
+    private String password;
     @Basic
     @Column(name = "phone")
     private String phone;
@@ -38,9 +41,6 @@ public class CustomerEntity {
     @Basic
     @Column(name = "deleted")
     private String deleted;
-    @Basic
-    @Column(name = "password")
-    private String password;
 
     public int getCustomerId() {
         return customerId;
@@ -56,6 +56,14 @@ public class CustomerEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getPhone() {
@@ -98,6 +106,14 @@ public class CustomerEntity {
         this.avatar = avatar;
     }
 
+    public String getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(String deleted) {
+        this.deleted = deleted;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -107,11 +123,13 @@ public class CustomerEntity {
 
         if (customerId != that.customerId) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (password != null ? !password.equals(that.password) : that.password != null) return false;
         if (phone != null ? !phone.equals(that.phone) : that.phone != null) return false;
         if (address != null ? !address.equals(that.address) : that.address != null) return false;
         if (createdAt != null ? !createdAt.equals(that.createdAt) : that.createdAt != null) return false;
         if (updatedAt != null ? !updatedAt.equals(that.updatedAt) : that.updatedAt != null) return false;
         if (avatar != null ? !avatar.equals(that.avatar) : that.avatar != null) return false;
+        if (deleted != null ? !deleted.equals(that.deleted) : that.deleted != null) return false;
 
         return true;
     }
@@ -120,27 +138,13 @@ public class CustomerEntity {
     public int hashCode() {
         int result = customerId;
         result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
         result = 31 * result + (phone != null ? phone.hashCode() : 0);
         result = 31 * result + (address != null ? address.hashCode() : 0);
         result = 31 * result + (createdAt != null ? createdAt.hashCode() : 0);
         result = 31 * result + (updatedAt != null ? updatedAt.hashCode() : 0);
         result = 31 * result + (avatar != null ? avatar.hashCode() : 0);
+        result = 31 * result + (deleted != null ? deleted.hashCode() : 0);
         return result;
-    }
-
-    public String getDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(String deleted) {
-        this.deleted = deleted;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 }

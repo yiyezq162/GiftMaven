@@ -15,7 +15,9 @@
       <mapping class="com.example.gifthavenbackend.entity.OrderDetailEntity"/>
       <mapping class="com.example.gifthavenbackend.entity.AdminEntity"/>
       <mapping class="com.example.gifthavenbackend.entity.PersistentLoginsEntity"/>
-      <!-- <property name="connection.username"/> -->
+      <mapping class="com.example.gifthavenbackend.entity.OrderProductEntity"/>
+    <mapping class="com.example.gifthavenbackend.entity.OrdersEntity"/>
+    <!-- <property name="connection.username"/> -->
     <!-- <property name="connection.password"/> -->
 
     <!-- DB schema will be updated if needed -->

@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 
 /**
  * @author 黎锦斌
- * * @date 2023/5/9
+ * * @date 2023/5/14
  */
 @Entity
 @Table(name = "admin", schema = "gift_shop", catalog = "")
@@ -95,6 +95,14 @@ public class AdminEntity {
         this.roles = roles;
     }
 
+    public String getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(String deleted) {
+        this.deleted = deleted;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -109,6 +117,7 @@ public class AdminEntity {
         if (updateAt != null ? !updateAt.equals(admin.updateAt) : admin.updateAt != null) return false;
         if (avatar != null ? !avatar.equals(admin.avatar) : admin.avatar != null) return false;
         if (roles != null ? !roles.equals(admin.roles) : admin.roles != null) return false;
+        if (deleted != null ? !deleted.equals(admin.deleted) : admin.deleted != null) return false;
 
         return true;
     }
@@ -122,14 +131,7 @@ public class AdminEntity {
         result = 31 * result + (updateAt != null ? updateAt.hashCode() : 0);
         result = 31 * result + (avatar != null ? avatar.hashCode() : 0);
         result = 31 * result + (roles != null ? roles.hashCode() : 0);
+        result = 31 * result + (deleted != null ? deleted.hashCode() : 0);
         return result;
-    }
-
-    public String getDeleted() {
-        return deleted;
-    }
-
-    public void setDeleted(String deleted) {
-        this.deleted = deleted;
     }
 }
