@@ -8,13 +8,10 @@
     <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
       <property name="connection.username">root</property>
       <property name="connection.password">Resu@1234</property>
-      <mapping class="com.example.gifthavenbackend.entity.CustomerEntity"/>
+    <mapping class="com.example.gifthavenbackend.entity.CustomerEntity"/>
       <mapping class="com.example.gifthavenbackend.entity.GiftsEntity"/>
       <mapping class="com.example.gifthavenbackend.entity.InventoryEntity"/>
-      <mapping class="com.example.gifthavenbackend.entity.OrderEntity"/>
-      <mapping class="com.example.gifthavenbackend.entity.OrderDetailEntity"/>
       <mapping class="com.example.gifthavenbackend.entity.AdminEntity"/>
-      <mapping class="com.example.gifthavenbackend.entity.PersistentLoginsEntity"/>
       <mapping class="com.example.gifthavenbackend.entity.OrderProductEntity"/>
     <mapping class="com.example.gifthavenbackend.entity.OrdersEntity"/>
     <!-- <property name="connection.username"/> -->

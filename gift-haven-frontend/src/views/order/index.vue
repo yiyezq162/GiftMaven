@@ -33,19 +33,20 @@
       <el-table :data="orderList" stripe style="width: 100%">
         <el-table-column label="#" type="index" width="80" />
         <el-table-column prop="orderId" label="订单号" width="180" />
+        <el-table-column prop="customerEntity.name" label="客户名" width="180" />
         <el-table-column :formatter="dateFormat" prop="createAt" label="创建时间" width="180" />
         <el-table-column :formatter="dateFormat" prop="completedAt" label="完成时间" width="180" />
         <el-table-column prop="orderStatus" label="状态" width="180" />
-        <el-table-column prop="name" label="顾客" width="180" />
-        <el-table-column label="地区及详细地址" width="180">
+        <el-table-column prop="name" label="收货人" width="180" />
+        <el-table-column label="收货地址" width="180">
           <template slot-scope="scope">
             <el-popover
               placement="top-start"
               width="400"
               trigger="hover"
-              :content="scope.row.address"
+              :content="scope.row.region"
             >
-              <div slot="reference">{{ scope.row.region }}</div>
+              <div slot="reference">{{ scope.row.address }}</div>
             </el-popover>
           </template>
         </el-table-column>
@@ -82,23 +83,32 @@
       @close="clearForm"
     >
       <el-form ref="orderFormRef" :model="orderForm" :rules="rules">
-        <el-form-item label="顾客名称" :label-width="formLabelWidth">
+        <el-form-item label="收件人" :label-width="formLabelWidth">
           <el-input v-model="orderForm.name" autocomplete="off" />
+        </el-form-item>
+        <el-form-item label="顾客id" :label-width="formLabelWidth">
+          <el-input v-model="orderForm.customerId" autocomplete="off" />
         </el-form-item>
         <el-form-item label="订单状态" :label-width="formLabelWidth">
           <template>
-            <el-select v-model="orderForm.orderStatus" placeholder="请选择" style="width: 180px">
+            <el-select v-model="orderForm.orderStatus" placeholder="请选择" style="width: 100%">
               <el-option
                 v-for="item in options"
                 :key="item.value"
                 :label="item.label"
-                :value="item.value">
-              </el-option>
+                :value="item.value"
+              />
             </el-select>
           </template>
         </el-form-item>
-        <el-form-item label="地址" :label-width="formLabelWidth">
-          <el-input v-model="orderForm.address" autocomplete="off" />
+        <el-form-item label="地区" :label-width="formLabelWidth">
+          <el-cascader
+            v-model="orderForm.address"
+            :placeholder="orderForm.address"
+            style="width: 100%"
+            size="large"
+            :options="pcaTextArr"
+          />
         </el-form-item>
         <el-form-item label="详细地址" :label-width="formLabelWidth">
           <el-input v-model="orderForm.region" autocomplete="off" />
@@ -147,7 +157,7 @@
       <div slot="footer" class="dialog-footer">
         <el-button type="success" @click="handleAddDetails">添 加</el-button>
         <el-button type="primary" @click="saveOrderProduct">修 改</el-button>
-        <el-button @click="dialogOrderListFormVisible = false;orderId=0">取 消</el-button>
+        <el-button @click="dialogOrderListFormVisible = false;orderId=0">返 回</el-button>
       </div>
     </el-dialog>
 
@@ -157,6 +167,7 @@
 
 <script>
 import orderApi from '@/api/order'
+import { pcaTextArr } from 'element-china-area-data'
 
 export default {
   data() {
@@ -187,7 +198,8 @@ export default {
       }, {
         value: '已完成',
         label: '已完成'
-      }]
+      }],
+      pcaTextArr
     }
   },
   created() {
@@ -283,6 +295,7 @@ export default {
       // 触发表单验证
       this.$refs.orderFormRef.validate((valid) => {
         if (valid) {
+          this.orderForm.address = JSON.stringify(this.orderForm.address)
           // 提交请求给后台
           orderApi.saveOrder(this.orderForm).then(response => {
             // 成功提示

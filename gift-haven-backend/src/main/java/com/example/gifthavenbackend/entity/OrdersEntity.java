@@ -1,5 +1,6 @@
 package com.example.gifthavenbackend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -13,12 +14,26 @@ import java.sql.Timestamp;
 @Table(name = "orders", schema = "gift_shop", catalog = "")
 @Where(clause = "deleted = '0'")
 public class OrdersEntity {
+
+    @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER,optional = false)
+    @JoinColumn(name = "customer_id")
+    @JsonIgnoreProperties("orders")
+    private CustomerEntity customerEntity;
+
+    public CustomerEntity getCustomerEntity() {
+        return customerEntity;
+    }
+
+    public void setCustomerEntity(CustomerEntity customerEntity) {
+        this.customerEntity = customerEntity;
+    }
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "order_id")
     private int orderId;
     @Basic
-    @Column(name = "customer_id")
+    @Column(name = "customer_id",insertable = false, updatable = false)
     private Integer customerId;
     @Basic
     @Column(name = "create_at")

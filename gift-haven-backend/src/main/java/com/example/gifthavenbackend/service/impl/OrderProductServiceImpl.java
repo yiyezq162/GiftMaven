@@ -23,8 +23,7 @@ public class OrderProductServiceImpl implements OrderProductService {
 
     @Override
     public List<OrderProductEntity> getOrderProductByOrderId(Integer id) {
-        List<OrderProductEntity> orderProductEntityList = orderProductRepository.findOrderProductEntityByOrderId(id);
-        return orderProductEntityList;
+        return orderProductRepository.findOrderProductEntityByOrderId(id);
     }
 
     @Override
@@ -32,7 +31,6 @@ public class OrderProductServiceImpl implements OrderProductService {
 
         for (OrderProductEntity entity : ordersEntityList){
             entity.setGiftsEntity(giftsRepository.findGiftEntityByGiftId(entity.getGiftId()));
-            // 对 entity 进行操作，例如：
             if (entity.getDeleted() == null) {
                 entity.setDeleted("0");
             }
