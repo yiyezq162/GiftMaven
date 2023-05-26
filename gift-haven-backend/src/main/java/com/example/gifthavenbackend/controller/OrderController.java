@@ -52,7 +52,7 @@ public class OrderController {
 
     @DeleteMapping("/{id}")
     public Result<?> deleteOrderById(@PathVariable("id") Integer id) {
-        orderService.deleteGiftById(id);
+        orderService.deleteOrderById(id);
         return Result.success("删除成功");
     }
 }

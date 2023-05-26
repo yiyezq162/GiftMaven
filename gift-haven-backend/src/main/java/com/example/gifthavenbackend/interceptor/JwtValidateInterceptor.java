@@ -26,8 +26,8 @@ public class JwtValidateInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String token = request.getHeader("X-Token");
-        System.out.println(request.getRequestURI() +" 待验证："+token);
-        if(token != null){
+        System.out.println(request.getRequestURI() + " 待验证：" + token);
+        if (token != null) {
             try {
                 jwtUtil.parseToken(token);
                 log.debug(request.getRequestURI() + " 放行...");
@@ -38,7 +38,7 @@ public class JwtValidateInterceptor implements HandlerInterceptor {
         }
         log.debug(request.getRequestURI() + " 禁止访问...");
         response.setContentType("application/json;charset=utf-8");
-        response.getWriter().write(JSON.toJSONString(Result.fail(20003,"jwt令牌无效，请重新登录")));
+        response.getWriter().write(JSON.toJSONString(Result.fail(20003, "jwt令牌无效，请重新登录")));
         return false;
     }
 }

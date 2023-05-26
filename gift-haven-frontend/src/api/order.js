@@ -43,5 +43,11 @@ export default {
       method: 'post',
       data: orderProductList
     })
+  },
+  deleteOrderProduct(orderProductId) {
+    return request({
+      url: '/product/' + orderProductId,
+      method: 'delete'
+    })
   }
 }

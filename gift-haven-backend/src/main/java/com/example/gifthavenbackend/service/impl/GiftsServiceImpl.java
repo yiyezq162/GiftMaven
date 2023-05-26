@@ -30,7 +30,7 @@ public class GiftsServiceImpl implements GiftsService {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
         Page<GiftsEntity> page = giftsRepository.findAll(pageable);
         if (name != null) {
-            List<GiftsEntity> gifts = giftsRepository.findByNameLike("%"+name+"%");
+            List<GiftsEntity> gifts = giftsRepository.findByNameLike("%" + name + "%");
             map = new HashMap<>();
             map.put("total", gifts.size());
             map.put("rows", gifts);

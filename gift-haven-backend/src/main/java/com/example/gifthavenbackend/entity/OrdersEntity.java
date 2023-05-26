@@ -15,25 +15,17 @@ import java.sql.Timestamp;
 @Where(clause = "deleted = '0'")
 public class OrdersEntity {
 
-    @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER,optional = false)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "customer_id")
     @JsonIgnoreProperties("orders")
     private CustomerEntity customerEntity;
-
-    public CustomerEntity getCustomerEntity() {
-        return customerEntity;
-    }
-
-    public void setCustomerEntity(CustomerEntity customerEntity) {
-        this.customerEntity = customerEntity;
-    }
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "order_id")
     private int orderId;
     @Basic
-    @Column(name = "customer_id",insertable = false, updatable = false)
+    @Column(name = "customer_id", insertable = false, updatable = false)
     private Integer customerId;
     @Basic
     @Column(name = "create_at")
@@ -59,6 +51,14 @@ public class OrdersEntity {
     @Basic
     @Column(name = "region")
     private String region;
+
+    public CustomerEntity getCustomerEntity() {
+        return customerEntity;
+    }
+
+    public void setCustomerEntity(CustomerEntity customerEntity) {
+        this.customerEntity = customerEntity;
+    }
 
     public int getOrderId() {
         return orderId;
@@ -172,5 +172,22 @@ public class OrdersEntity {
 
     public void setRegion(String region) {
         this.region = region;
+    }
+
+    @Override
+    public String toString() {
+        return "OrdersEntity{" +
+                "customerEntity=" + customerEntity +
+                ", orderId=" + orderId +
+                ", customerId=" + customerId +
+                ", createAt=" + createAt +
+                ", updateAt=" + updateAt +
+                ", orderStatus='" + orderStatus + '\'' +
+                ", deleted='" + deleted + '\'' +
+                ", completedAt=" + completedAt +
+                ", address='" + address + '\'' +
+                ", name='" + name + '\'' +
+                ", region='" + region + '\'' +
+                '}';
     }
 }

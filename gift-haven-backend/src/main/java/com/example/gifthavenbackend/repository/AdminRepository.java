@@ -1,6 +1,5 @@
 package com.example.gifthavenbackend.repository;
 
-import antlr.TokenStreamRewriteEngine;
 import com.example.gifthavenbackend.entity.AdminEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;

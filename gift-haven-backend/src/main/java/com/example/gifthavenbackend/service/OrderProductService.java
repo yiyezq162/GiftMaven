@@ -12,4 +12,6 @@ public interface OrderProductService {
     List<OrderProductEntity> getOrderProductByOrderId(Integer id);
 
     void saveAll(Iterable<OrderProductEntity> ordersEntityList);
+
+    void delete(Integer id);
 }

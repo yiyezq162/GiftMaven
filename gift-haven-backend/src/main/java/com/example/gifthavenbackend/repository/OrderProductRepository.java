@@ -14,7 +14,9 @@ import java.util.List;
 public interface OrderProductRepository extends JpaRepository<OrderProductEntity, Integer>,
         JpaSpecificationExecutor<OrderProductEntity> {
 
-//    @Query("SELECT ope, p FROM OrderProductEntity ope JOIN ope.giftsEntity p WHERE ope.orderId = :orderId")
+    //    @Query("SELECT ope, p FROM OrderProductEntity ope JOIN ope.giftsEntity p WHERE ope.orderId = :orderId")
     List<OrderProductEntity> findOrderProductEntityByOrderId(@Param("orderId") int orderId);
+
+    OrderProductEntity findOrderProductEntityByProductId(@Param("productId") int productId);
 
 }

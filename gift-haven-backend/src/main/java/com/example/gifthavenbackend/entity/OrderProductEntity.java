@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Where(clause = "deleted = '0'")
 public class OrderProductEntity {
 
-    @ManyToOne(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER,optional = false)
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "gift_id")
     @JsonIgnoreProperties("order_product")
     private GiftsEntity giftsEntity;
@@ -27,7 +27,7 @@ public class OrderProductEntity {
     @Column(name = "order_id")
     private Integer orderId;
     @Basic
-    @Column(name = "gift_id",insertable = false, updatable = false)
+    @Column(name = "gift_id", insertable = false, updatable = false)
     private Integer giftId;
     @Basic
     @Column(name = "number")
@@ -108,5 +108,17 @@ public class OrderProductEntity {
         result = 31 * result + (number != null ? number.hashCode() : 0);
         result = 31 * result + (deleted != null ? deleted.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderProductEntity{" +
+                "giftsEntity=" + giftsEntity +
+                ", productId=" + productId +
+                ", orderId=" + orderId +
+                ", giftId=" + giftId +
+                ", number=" + number +
+                ", deleted='" + deleted + '\'' +
+                '}';
     }
 }

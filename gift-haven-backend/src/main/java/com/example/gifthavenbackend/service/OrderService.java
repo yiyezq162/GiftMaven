@@ -15,5 +15,5 @@ public interface OrderService {
 
     void save(OrdersEntity orderEntity);
 
-    void deleteGiftById(Integer id);
+    void deleteOrderById(Integer id);
 }

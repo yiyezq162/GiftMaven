@@ -89,7 +89,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void logout(String token) {
-    // redisTemplate.delete(token);
+        // redisTemplate.delete(token);
     }
 
     @Override

@@ -29,12 +29,19 @@ public class OrderProductServiceImpl implements OrderProductService {
     @Override
     public void saveAll(Iterable<OrderProductEntity> ordersEntityList) {
 
-        for (OrderProductEntity entity : ordersEntityList){
+        for (OrderProductEntity entity : ordersEntityList) {
             entity.setGiftsEntity(giftsRepository.findGiftEntityByGiftId(entity.getGiftId()));
             if (entity.getDeleted() == null) {
                 entity.setDeleted("0");
             }
             orderProductRepository.save(entity);
         }
+    }
+
+    @Override
+    public void delete(Integer id) {
+        OrderProductEntity orderProductEntity = orderProductRepository.findOrderProductEntityByProductId(id);
+        orderProductEntity.setDeleted("1");
+        orderProductRepository.save(orderProductEntity);
     }
 }

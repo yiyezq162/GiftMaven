@@ -162,4 +162,20 @@ public class GiftsEntity implements Serializable {
         result = 31 * result + (deleted != null ? deleted.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "GiftsEntity{" +
+                "giftId=" + giftId +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", stock='" + stock + '\'' +
+                ", title='" + title + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", img='" + img + '\'' +
+                ", deleted='" + deleted + '\'' +
+                '}';
+    }
 }

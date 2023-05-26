@@ -146,12 +146,16 @@
             <el-input v-model="scope.row.number" autocomplete="off" />
           </template>
         </el-table-column>
-        <el-table-column label="价格" width="180">
+        <el-table-column label="价格">
           <template slot-scope="scope">
             <div slot="reference">{{ calcResult(scope.row.number, scope.row.giftsEntity.price) }}</div>
           </template>
         </el-table-column>
-
+        <el-table-column label="操作">
+          <template slot-scope="scope">
+            <el-button type="danger" icon="el-icon-delete" size="mini" circle @click="deleteOrderProduct(scope.row)" />
+          </template>
+        </el-table-column>
       </el-table>
 
       <div slot="footer" class="dialog-footer">
@@ -253,6 +257,26 @@ export default {
         })
       })
     },
+    deleteOrderProduct(orderProduct) {
+      this.$confirm(`您确认删除商品 ${orderProduct.giftsEntity.name} ?`, '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        orderApi.deleteOrderProduct(orderProduct.productId).then(response => {
+          this.$message({
+            type: 'success',
+            message: response.message
+          })
+          this.dialogOrderListFormVisible = false
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
+    },
     openEditUI(id) {
       if (id == null) {
         this.title = '新增订单'
@@ -290,6 +314,7 @@ export default {
           type: 'success'
         })
       })
+      this.dialogOrderListFormVisible = false
     },
     saveOrder() {
       // 触发表单验证

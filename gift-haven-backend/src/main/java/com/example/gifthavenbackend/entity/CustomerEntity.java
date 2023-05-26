@@ -148,4 +148,19 @@ public class CustomerEntity implements Serializable {
         result = 31 * result + (deleted != null ? deleted.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "CustomerEntity{" +
+                "customerId=" + customerId +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", phone='" + phone + '\'' +
+                ", address='" + address + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", avatar='" + avatar + '\'' +
+                ", deleted='" + deleted + '\'' +
+                '}';
+    }
 }

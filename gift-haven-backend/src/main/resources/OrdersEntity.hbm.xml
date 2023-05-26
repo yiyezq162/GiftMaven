@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.example.gifthavenbackend.entity.OrdersEntity" table="orders" schema="gift_shop">
+        <id name="orderId" column="order_id"/>
+        <property name="customerId" column="customer_id" insert="false" update="false"/>
+        <property name="createAt" column="create_at"/>
+        <property name="updateAt" column="update_at"/>
+        <property name="orderStatus" column="order_status"/>
+        <property name="deleted" column="deleted"/>
+        <property name="completedAt" column="completed_at"/>
+        <property name="address" column="address"/>
+        <property name="name" column="name"/>
+        <property name="region" column="region"/>
+        <many-to-one name="customerEntity" class="com.example.gifthavenbackend.entity.CustomerEntity" fetch="join" lazy="false">
+            <column name="customer_id" not-null="false" />
+        </many-to-one>
+
+    </class>
+</hibernate-mapping>

@@ -20,7 +20,8 @@ public interface AdminService extends UserDetailsService {
     Map<String, Object> getUserInfo(String token);
 
     void logout(String token);
-    HashMap<String,Object> findAll(int pageNo, int pageSize, String username);
+
+    HashMap<String, Object> findAll(int pageNo, int pageSize, String username);
 
     void save(AdminEntity adminEntity);
 
