@@ -18,6 +18,7 @@ import java.util.List;
 /**
  * @author 黎锦斌
  * * @date 2023/5/11
+ * Swagger但是我懒
  */
 @Configuration
 @EnableOpenApi

@@ -13,6 +13,7 @@ import javax.annotation.Resource;
  *
  * @author 黎锦斌
  * * @date 2023/5/11
+ * 拦截器配置
  */
 @Configuration
 public class MyInterceptorConfig implements WebMvcConfigurer {

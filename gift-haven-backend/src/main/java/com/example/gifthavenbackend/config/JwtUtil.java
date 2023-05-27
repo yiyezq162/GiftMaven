@@ -16,6 +16,7 @@ import java.util.UUID;
 /**
  * @author 黎锦斌
  * * @date 2023/5/11
+ * Jwt配置
  */
 @Component
 public class JwtUtil {

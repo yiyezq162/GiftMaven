@@ -12,6 +12,7 @@ import java.util.Map;
 /**
  * @author 黎锦斌
  * * @date 2023/5/8
+ * 管理员Controller
  */
 @RestController
 @RequestMapping("/admin")
@@ -118,6 +119,7 @@ public class AdminController {
 
     /**
      * 删除管理员
+     *
      * @param id 管理员id
      * @return result
      */
