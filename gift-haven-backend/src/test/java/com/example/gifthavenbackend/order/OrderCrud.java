@@ -8,7 +8,6 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 import org.junit.jupiter.api.Test;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -31,6 +30,19 @@ public class OrderCrud {
     }
 
     /**
+     * 查询所有订单
+     */
+    @Test
+    public void testHqlQueryAll(){
+        String hql = "from OrdersEntity oe join fetch oe.customerEntity where oe.deleted = '0'";
+        Query query = session.createQuery(hql);
+        List<OrdersEntity> resultList = query.getResultList();
+        for (OrdersEntity result : resultList) {
+            System.out.println(result);
+        }
+    }
+
+    /**
      * 新增订单
      */
     @Test
@@ -45,9 +57,7 @@ public class OrderCrud {
         ordersEntity.setName("黎锦斌");
         ordersEntity.setAddress("广西壮族自治区 慧泊市 邕宁区");
         ordersEntity.setRegion("南宁学院");
-
-        Serializable save = session.save(ordersEntity);
-        System.out.println("新增数据的主键 id:" + save);
+        session.save(ordersEntity);
 
         transaction.commit();
     }
@@ -69,25 +79,17 @@ public class OrderCrud {
      */
     @Test
     public void testHqlQueryById() {
+        //hql         来自  订单表        别名  连接       订单表的定义的实体对象 找 订单表的订单id  ?是占位符 1是第一个占位符  请忽略我的(and  oe.deleted = '0')
         String hql = "from OrdersEntity oe join fetch oe.customerEntity where oe.orderId = ?1 and  oe.deleted = '0'";
+        //创建sql语句
         Query query = session.createQuery(hql);
+        //设置第 1 个 占位符  的值为  1
         query.setParameter(1, 1);
+        //执行查询返回对象
         OrdersEntity ordersEntity = (OrdersEntity) query.uniqueResult();
         System.out.println(ordersEntity);
     }
 
-    /**
-     * 查询所有订单
-     */
-    @Test
-    public void testHqlQueryAll(){
-        String hql = "from OrdersEntity oe join fetch oe.customerEntity where oe.deleted = '0'";
-        Query query = session.createQuery(hql);
-        List<OrdersEntity> resultList = query.getResultList();
-        for (OrdersEntity result : resultList) {
-            System.out.println(result);
-        }
-    }
 
     /**
      * 删除订单

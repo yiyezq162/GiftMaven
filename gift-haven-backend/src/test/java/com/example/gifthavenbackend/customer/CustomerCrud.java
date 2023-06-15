@@ -48,7 +48,6 @@ public class CustomerCrud {
         customerEntity.setDeleted("0");
         //向 user 表中插入数据,返回值为新增数据的主键 id
         Serializable save = session.save(customerEntity);
-        System.out.println("新增数据的主键 id:"+save);
         //提交事务
         transaction.commit();
     }
@@ -95,6 +94,13 @@ public class CustomerCrud {
     public void testDelete(){
         //开始事务
         Transaction transaction = session.beginTransaction();
+
+        String hql = "DELETE FROM CustomerEntity WHERE id = ?1";
+
+        Query query = session.createQuery(hql);
+        query.setParameter("1",10);
+        query.executeUpdate();
+
         //查找对象
         CustomerEntity customerEntity = session.get(CustomerEntity.class, 10);
         //设置删除

@@ -11,11 +11,11 @@
         <!-- 数据库方言配置 -->
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="hibernate.connection.url">
-            jdbc:mysql://meet0208.icu:30336/gift_shop?serverTimezone=Asia/Shanghai
+            jdbc:mysql://localhost:3306/gift_shop?serverTimezone=Asia/Shanghai
         </property>
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.connection.password">Resu@1234</property>
+        <property name="hibernate.connection.password">123456</property>
         <property name="hibernate.c3p0.acquire_increment">10</property>
         <property name="hibernate.c3p0.idle_test_period">100000</property>
         <property name="hibernate.c3p0.timeout">5000</property>
