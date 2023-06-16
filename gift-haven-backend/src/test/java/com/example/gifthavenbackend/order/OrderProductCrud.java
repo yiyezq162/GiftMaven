@@ -1,5 +1,6 @@
 package com.example.gifthavenbackend.order;
 
+import com.example.gifthavenbackend.entity.GiftsEntity;
 import com.example.gifthavenbackend.entity.OrderProductEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -38,7 +39,10 @@ public class OrderProductCrud {
         Transaction transaction = session.beginTransaction();
         OrderProductEntity orderProductEntity = new OrderProductEntity();
         orderProductEntity.setOrderId(1);
-        orderProductEntity.setGiftId(2);
+
+        GiftsEntity giftsEntity = session.get(GiftsEntity.class, 5);
+        orderProductEntity.setGiftsEntity(giftsEntity);
+
         orderProductEntity.setNumber(3);
         orderProductEntity.setDeleted("0");
         session.save(orderProductEntity);

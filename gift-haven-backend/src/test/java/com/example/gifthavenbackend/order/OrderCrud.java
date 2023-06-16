@@ -1,5 +1,6 @@
 package com.example.gifthavenbackend.order;
 
+import com.example.gifthavenbackend.entity.CustomerEntity;
 import com.example.gifthavenbackend.entity.OrdersEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -51,10 +52,13 @@ public class OrderCrud {
         Transaction transaction = session.beginTransaction();
 
         OrdersEntity ordersEntity = new OrdersEntity();
-        ordersEntity.setCustomerId(3);
         ordersEntity.setOrderStatus("未开始");
+
+        CustomerEntity customerEntity = session.get(CustomerEntity.class, 1);
+        ordersEntity.setCustomerEntity(customerEntity);
+
         ordersEntity.setDeleted("0");
-        ordersEntity.setName("黎锦斌");
+        ordersEntity.setName("黎锦斌123");
         ordersEntity.setAddress("广西壮族自治区 慧泊市 邕宁区");
         ordersEntity.setRegion("南宁学院");
         session.save(ordersEntity);

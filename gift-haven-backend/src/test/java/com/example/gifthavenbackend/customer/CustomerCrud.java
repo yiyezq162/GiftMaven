@@ -46,8 +46,7 @@ public class CustomerCrud {
         customerEntity.setAddress("广西南宁");
         customerEntity.setAvatar(" ");
         customerEntity.setDeleted("0");
-        //向 user 表中插入数据,返回值为新增数据的主键 id
-        Serializable save = session.save(customerEntity);
+        session.save(customerEntity);
         //提交事务
         transaction.commit();
     }
